@@ -33,18 +33,11 @@ class EmergencyControlFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding?.controlViewModel = viewModel
-    }
-
-
-    override fun onResume() {
-        super.onResume()
         viewModel.initEmergencyCondition()
     }
 
-    override fun onPause() {
-        super.onPause()
+    override fun onDestroy() {
+        super.onDestroy()
         viewModel.clearDispose()
     }
-
-
 }
