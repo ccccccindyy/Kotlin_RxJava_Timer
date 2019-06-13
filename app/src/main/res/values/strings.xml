@@ -3,7 +3,7 @@
     <string name="no_emergency">No Emergency</string>
     <string name="emergency">Emergency</string>
     <string name="total">Total</string>
-    <string name="age_under_18">e;lt18</string>
-    <string name="age_18_to_60">18;lt;60</string>
-    <string name="age_over_60">e;gt60</string>
+    <string name="age_under_18">e&lt;18</string>
+    <string name="age_18_to_60">18&lt;60</string>
+    <string name="age_over_60">e&gt;60</string>
 </resources>

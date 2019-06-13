@@ -6,6 +6,7 @@ import android.util.Log
 import com.example.xinzhang.tdstest.data.dataModel.Employee
 import com.example.xinzhang.tdstest.data.dataSource.EmergencyControlCallHandler
 import com.example.xinzhang.tdstest.data.dataSource.EmergencyStimulator
+import com.example.xinzhang.tdstest.data.dataSource.api.EMPLOYEE
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Consumer
@@ -23,6 +24,7 @@ class EmergencyControlViewModel {
     val ageUnder18Number: ObservableField<String> = ObservableField("")
     val ageUnder18to60Number: ObservableField<String>  = ObservableField("")
     val ageOver60: ObservableField<String>  = ObservableField("")
+    val isLoading: ObservableBoolean = ObservableBoolean(false) // refresh every 5 seconds
 
 
     fun initEmergencyCondition() {
@@ -32,13 +34,19 @@ class EmergencyControlViewModel {
                 .doOnNext { emergency -> employeeControlSubject.onNext(emergency) }
                 .observeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
-                .subscribe { b -> Log.d("Emergency Event", b.toString()) })
+                .subscribe { b -> Log.d("Emergency Event", b.toString()) },
 
-        compositeDisposable.add(employeeControlSubject
-            .doOnNext { emergency ->
-                if (emergency) controlHandler.resume(Consumer { employees -> updateEmergencyDisplay(employees)}) else controlHandler.stop()
+            employeeControlSubject
+            .doOnNext { emergency -> run {
+                    if (emergency) controlHandler.resume(Consumer { employees -> updateEmergencyDisplay(employees) }) else controlHandler.stop()
+                }
             }
-            .subscribe{ a -> hasEmergency.set(a)})
+            .subscribe{ a -> run {
+                hasEmergency.set(a)
+            }},
+
+            controlHandler.loading.subscribe{this.isLoading.set(true)}
+            )
     }
 
     fun clearDispose() {
@@ -46,6 +54,7 @@ class EmergencyControlViewModel {
     }
 
     private fun updateEmergencyDisplay(employees: List<Employee>){
+        isLoading.set(false)
         totalNumber.set(employees.size.toString())
         Log.d("Total number", employees.size.toString())
         ageUnder18Number.set(employees.filter { employee -> employee.age < 18 }.size.toString())

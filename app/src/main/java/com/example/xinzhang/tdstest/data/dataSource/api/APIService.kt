@@ -15,7 +15,7 @@ interface APIService {
 
     companion object Factory {
 
-        var okHttpClient: OkHttpClient = OkHttpClient().newBuilder()
+        private var okHttpClient: OkHttpClient = OkHttpClient().newBuilder()
             .connectTimeout(10, TimeUnit.SECONDS)
             .readTimeout(10, TimeUnit.SECONDS)
             .build()
