@@ -21,10 +21,7 @@ class EmergencyControlFragment : Fragment() {
     @Nullable
     override fun onCreateView(inflater: LayoutInflater, @Nullable container: ViewGroup?,
                               @Nullable savedInstanceState: Bundle?): View? {
-        // Inflate this data binding layout
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_emergency_control, container, false)
-
-        // Create and set the adapter for the RecyclerView.
         return binding?.root
     }
 
