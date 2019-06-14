@@ -4,8 +4,7 @@ package com.example.xinzhang.tdstest.data.dataSource
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.Observable
-
-import java.util.Random
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 private const val EMERGENCY_INTERVAL: Long = 60

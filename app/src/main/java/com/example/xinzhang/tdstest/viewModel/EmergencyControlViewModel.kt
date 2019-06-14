@@ -6,7 +6,6 @@ import android.util.Log
 import com.example.xinzhang.tdstest.data.dataModel.Employee
 import com.example.xinzhang.tdstest.data.dataSource.EmergencyControlCallHandler
 import com.example.xinzhang.tdstest.data.dataSource.EmergencyStimulator
-import com.example.xinzhang.tdstest.data.dataSource.api.EMPLOYEE
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Consumer
@@ -24,8 +23,10 @@ class EmergencyControlViewModel {
     val ageUnder18Number: ObservableField<String> = ObservableField("")
     val ageUnder18to60Number: ObservableField<String>  = ObservableField("")
     val ageOver60: ObservableField<String>  = ObservableField("")
-    val isLoading: ObservableBoolean = ObservableBoolean(false) // refresh every 5 seconds
+    val errorMsg: ObservableField<String> = ObservableField("")
 
+    val isLoading: ObservableBoolean = ObservableBoolean(false) // refresh every 5 seconds
+    val hasError: ObservableBoolean = ObservableBoolean(false)
 
     fun initEmergencyCondition() {
         val controlHandler = EmergencyControlCallHandler()
@@ -38,14 +39,19 @@ class EmergencyControlViewModel {
 
             employeeControlSubject
             .doOnNext { emergency -> run {
-                    if (emergency) controlHandler.resume(Consumer { employees -> updateEmergencyDisplay(employees) }) else controlHandler.stop()
+                    hasError.set(false)
+                    if (emergency) controlHandler.resume(Consumer { employees -> updateEmergencyDisplay(employees)} ,
+                        Consumer { t -> run {
+                        errorMsg.set(t.localizedMessage)
+                        hasError.set(true)
+                    } }) else controlHandler.stop()
                 }
             }
             .subscribe{ a -> run {
                 hasEmergency.set(a)
             }},
 
-            controlHandler.loading.subscribe{this.isLoading.set(true)}
+            controlHandler.loading.subscribe{ this.isLoading.set(true) }
             )
     }
 

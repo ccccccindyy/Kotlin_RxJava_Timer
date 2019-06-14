@@ -1,7 +1,7 @@
 package com.example.xinzhang.tdstest.view
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import com.example.xinzhang.tdstest.R
 
 class MainActivity : AppCompatActivity() {

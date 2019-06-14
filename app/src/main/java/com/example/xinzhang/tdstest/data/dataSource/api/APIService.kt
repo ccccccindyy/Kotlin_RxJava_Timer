@@ -16,8 +16,8 @@ interface APIService {
     companion object Factory {
 
         private var okHttpClient: OkHttpClient = OkHttpClient().newBuilder()
-            .connectTimeout(10, TimeUnit.SECONDS)
-            .readTimeout(10, TimeUnit.SECONDS)
+            .connectTimeout(5, TimeUnit.SECONDS)
+            .readTimeout(5, TimeUnit.SECONDS)
             .build()
 
         fun create(): APIService {

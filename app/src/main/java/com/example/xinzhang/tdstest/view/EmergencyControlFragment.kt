@@ -13,8 +13,6 @@ import com.example.xinzhang.tdstest.viewModel.EmergencyControlViewModel
 
 class EmergencyControlFragment : Fragment() {
 
-
-
     private var binding: FragmentEmergencyControlBinding? = null
     private val viewModel: EmergencyControlViewModel = EmergencyControlViewModel()
 
