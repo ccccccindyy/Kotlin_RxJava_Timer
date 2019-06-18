@@ -1,5 +1,3 @@
-# The Code Test for TDS Android Developer
-
 The project is build with MVVM design pattern 
 
 ## Emergency Control 
