@@ -9,7 +9,7 @@ The project is build with MVVM design pattern
 
 API request error handled and displayed until the next emergency event is emmited. The error message will disappear reactively
 
-## Potential Improvements (Things didn't get enough time to do)
+## Potential Improvements
 ### Sealed class 
    Can be applied as the polynome of `Employee.kt` with threee age groups
 ### Unit Tests
