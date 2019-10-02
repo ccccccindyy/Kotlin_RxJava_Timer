@@ -4,7 +4,7 @@ import com.example.xinzhang.tdstest.data.dataModel.Employee
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
 
-const val BASE_URL: String = "http://dummy.restapiexample.com/api/v1/"
+const val BASE_URL: String = "http://dummy.restapiexample.com/api/v1/employees"
 const val EMPLOYEE: String = "employees"
 
 interface APIService {
